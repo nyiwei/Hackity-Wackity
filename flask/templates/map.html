@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <style>
+        /* Add any custom styles for your map container */
+        #map-container {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>Map</h1>
+    <!-- Embed Folium map HTML in an iframe -->
+    <div id="map-container">
+        {{ map_html | safe }}
+    </div>
+</body>
+</html>
