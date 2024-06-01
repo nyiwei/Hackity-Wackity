@@ -2,7 +2,7 @@
 
 ## Paw Patrol
 
-Paw Patrol is a one stop web application for users to analyse crime hotspots and also easily determine the nearest NPC to the crime scene.
+Paw Patrol is a one stop web application for police officers to analyse crime hotspots and also easily determine the nearest NPC to the crime scene.
 
 **Overview of crime hotspots**
 
