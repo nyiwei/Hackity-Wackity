@@ -18,8 +18,8 @@ Paw Patrol is a one stop web application for users to analyse crime hotspot and 
 2. Install dependencies <br>
 ```pip install -r requirements.txt```
 3. Set up environment variables <br>
-```export FLASK_APP=app.py
-  export FLASK_ENV=development```
+```export FLASK_APP=app.py``` <br>
+```export FLASK_ENV=development```
 4. Run the Flask app
 ```flask run```
 5. Acdees the app in your web browser
