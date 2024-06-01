@@ -1,0 +1,6 @@
+flask
+folium
+geopandas
+pandas
+shapely
+requests
