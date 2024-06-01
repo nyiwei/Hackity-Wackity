@@ -16,7 +16,7 @@ Paw Patrol is a one stop web application for police officers to analyse crime ho
 
 1. Clone the repository <br>
 ```
-git clone https://github.com/yourusername/your-repository.git
+git clone https://github.com/nyiwei/Hackity-Wackity
 ```
 3. Install dependencies <br>
 ```
