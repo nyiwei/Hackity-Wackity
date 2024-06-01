@@ -96,7 +96,8 @@ def generate_coordinates():
     r = crime.sample()
     lat = r.lat.values[0]
     long = r.long.values[0]
-    return jsonify({'lat': lat, 'long': long})
+    s = str(r.Severity.values[0])
+    return jsonify({'lat': lat, 'long': long, 'severity': s})
 
 @app.route('/get_nearest_npc', methods=['POST'])
 def get_nearest_npc():
@@ -111,6 +112,7 @@ def get_nearest_npc():
     search_results = response.json()
     
     nearest_npc = None
+    npc = None
     min_dist = float("inf")
 
     for result in search_results["results"]:
@@ -120,10 +122,11 @@ def get_nearest_npc():
         if distance < min_dist:
             min_dist = distance
             nearest_npc = (npc_lat, npc_long)
-    
+            npc = str(result["SEARCHVAL"])
+    print(npc)
     if nearest_npc:
         nearest_npc_lat, nearest_npc_long = nearest_npc
-        return jsonify({'lat': nearest_npc_lat, 'long': nearest_npc_long})
+        return jsonify({'lat': nearest_npc_lat, 'long': nearest_npc_long, 'npc': npc})
     else:
         return jsonify({'error': 'No NPC found'}), 404
 
