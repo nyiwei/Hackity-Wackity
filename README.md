@@ -39,7 +39,9 @@ flask run
 # Data Preprocessing
 All data used for the solution are retrieved from data.gov.sg and are preprocessed using pandas and geopandas.
 As seen below, the data is messy and we needed to preprocessed them for easy accessibility and readibility. 
-<img width="528" alt="Screenshot 2024-06-01 at 11 42 52 AM" src="https://github.com/nyiwei/Hackity-Wackity/assets/99710151/c2bd793c-1af6-41f1-8a95-08efb4812f96">
+<br><br>
+<img width="528" alt="Screenshot 2024-06-01 at 11 46 19 AM" src="https://github.com/nyiwei/Hackity-Wackity/assets/99710151/4e9962c0-1a65-46c8-9e9b-b318ae5ebf77">
+
 <br><br>
 
 On top of that, we have also utilise oneMap API to determine the nearest NPC to every crime scene.
