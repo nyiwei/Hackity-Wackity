@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emergency Deploymentys</title>
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>Emergency!</h1>
+    <button id="add-marker-btn">Emergency Simulator</button>
+    <div id="map"></div>
+
+    <script>
+
+        $(document).ready(function() {
+
+            const map = L.map('map').setView([1.3521, 103.8198], 12);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            let markers = []; // Array to store markers
+
+            $('#add-marker-btn').click(function() {
+                clearMarkers();
+
+                $.ajax({
+                    url: '/generate_coordinates',
+                    type: 'POST',
+                    success: function(data) {
+                        const lat = data.lat;
+                        const long = data.long;
+
+                        // Add marker to the map
+
+                        const marker = L.circleMarker([lat, long], {
+                            radius: 8,
+                            color: 'red',
+                            fillColor: '#f03',
+                            fillOpacity: 1
+                        }).addTo(map);
+                        markers.push(marker); 
+                        map.setView([lat, long], 12);
+
+                        // Find nearest NPC
+                        $.ajax({
+                            url: '/get_nearest_npc',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ lat: lat, long: long }),
+                            success: function(data) {
+                                const npcLat = data.lat;
+                                const npcLong = data.long;
+
+                                const triangleMarker = L.polygon([
+                                    [npcLat, npcLong], 
+                                    [npcLat + 0.005, npcLong - 0.005], 
+                                    [npcLat - 0.005, npcLong - 0.005]
+                                ], {
+                                    color: 'blue',
+                                    fillColor: 'blue',
+                                    fillOpacity: 1
+                                }).addTo(map);
+
+                                //const npcMarker = L.marker([npcLat, npcLong], { icon: redIcon }).addTo(map);
+                                markers.push(triangleMarker)
+                                
+                                // Plot the route
+                                $.ajax({
+                                    url: '/get_route',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({ start: [lat, long], end: [npcLat, npcLong] }),
+                                    success: function(routeData) {
+                                        // Process the route data and plot on the map
+                                        const coordinates = routeData.route.geometry.coordinates;
+                                        const route = coordinates.map(coord => [coord[1], coord[0]]);
+                                        const polyline = L.polyline(route, { color: 'blue' }).addTo(map);
+                                        map.fitBounds(polyline.getBounds());
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        
+            function clearMarkers() {
+                markers.forEach(function(marker) {
+                    map.removeLayer(marker);
+                });
+                markers = []; // Clear the array
+            }
+        });
+
+        
+    </script>
+</body>
+</html>
