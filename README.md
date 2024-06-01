@@ -15,12 +15,31 @@ Paw Patrol is a one stop web application for police officers to analyse crime ho
 # Installation
 
 1. Clone the repository <br>
-```git clone https://github.com/yourusername/your-repository.git```
-2. Install dependencies <br>
-```pip install -r requirements.txt```
-3. Set up environment variables <br>
-```export FLASK_APP=app.py``` <br>
-```export FLASK_ENV=development```
-4. Run the Flask app
-```flask run```
-5. Acdees the app in your web browser
+```
+git clone https://github.com/yourusername/your-repository.git
+```
+3. Install dependencies <br>
+```
+pip install -r requirements.txt
+```
+5. Set up environment variables <br>
+```
+export FLASK_APP=app.py
+```
+<br>
+```
+export FLASK_ENV=development
+```
+5. Run the Flask app
+```
+flask run
+```
+6. Access the app in your web browser
+
+# Data Preprocessing
+All data used for the solution are retrieved from data.gov.sg and are preprocessed using pandas and geopandas.
+As seen below, the data is messy and we needed to preprocessed them for easy accessibility and readibility. 
+<img width="528" alt="Screenshot 2024-06-01 at 11 42 52 AM" src="https://github.com/nyiwei/Hackity-Wackity/assets/99710151/c2bd793c-1af6-41f1-8a95-08efb4812f96">
+<br><br>
+
+On top of that, we have also utilise oneMap API to determine the nearest NPC to every crime scene.
